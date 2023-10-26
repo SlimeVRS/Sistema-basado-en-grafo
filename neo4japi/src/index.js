@@ -7,6 +7,7 @@ require("dotenv").config();
 // Routes imoprts
 const player_api = require('./routes/player')
 const med_api = require('./routes/medicamento')
+const active_api = require('./routes/activos')
 
 const swaggerUI = require("swagger-ui-express")
 const swaggerJsDoc = require("swagger-jsdoc")
@@ -39,6 +40,7 @@ app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)))
 // Routes
 app.use('/player', player_api)
 app.use('/med', med_api)
+app.use('/activo', active_api)
 
 app.listen(port, () => console.log(
     "Server listenign to: ", port    
