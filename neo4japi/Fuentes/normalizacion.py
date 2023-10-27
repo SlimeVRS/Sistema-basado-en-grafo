@@ -1,6 +1,7 @@
 import pandas as pd
 import csv
 import re
+import unidecode
 
 
 def normalization_for_file_4():
@@ -11,7 +12,7 @@ def normalization_for_file_4():
         with open("4_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((r[1], r[5], r[7], r[8]))
+                writer.writerow((r[1].upper(), unidecode.unidecode(r[5].upper()), r[7], r[8].upper()))
         result.close()
     source.close()
 
@@ -27,7 +28,7 @@ def normalization_for_file_6():
         with open("6_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((r[2], r[6], r[8], r[9]))
+                writer.writerow((unidecode.unidecode(r[2].upper()), r[6], r[8], unidecode.unidecode(r[9].upper())))
         result.close()
     source.close()
 
@@ -43,7 +44,7 @@ def normalization_for_file1():
         with open("1_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((eliminar_numero(r[0]), r[1], r[2], r[3], r[5], r[6], r[9]))
+                writer.writerow((eliminar_numero(r[0]).upper(), r[1].upper(), r[2], r[3], r[5], r[9]))
         result.close()
     source.close()
 
