@@ -194,4 +194,42 @@ router.delete('/:id', async function (req, res) {
     }
 })
 
+/**
+ * @swagger
+ * /medicamento_ccss/relacion_entre_solicitado_y_medicamento:
+ *  post:
+ *      summary: Crea todas las relaciones entre un medicamento solicitado y el servicio
+ *      tags: [Medicamento de CCSS]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          medicamento_solicitado:
+ *                              type: string
+ *                              description: medicamento de la caja 
+ *                          medicamento_pedido:
+ *                              type: string
+ *                              description: medicamento del catalogo general
+ *          responses:
+ *              200:
+ *                  description: Relaciones creadas
+ *              500:
+ *                  description: Error al crear las relaciones
+ */
+router.post('/relacion_entre_solicitado_y_medicamento', async function (req, res) {
+    const result = await med_ccss_calls.create_service_med_relations(req.body)
+    if(result == true) {
+        res.status(200).send({ 
+            Message: "Se han creado todas las relaciones para " +  req.body.medicamento_solicitado + " y " + req.body.medicamento_pedido
+         })
+    } else {
+        res.status(500).send({ 
+            Message: "Hubo un error al crear las relaciones: " +  req.body.medicamento_solicitado + " y " + req.body.medicamento_pedido
+         })
+    }
+})
+
 module.exports = router;

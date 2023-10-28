@@ -54,3 +54,21 @@ exports.delete_generic_med = async function (id) {
         session.close()
     }
 }
+
+exports.create_principle_active_relation = async function(relacion) {
+    let session = driver.session();
+    try {
+            await session.run(`
+                MATCH (m:MEDICAMENTO {activo:'${relacion.activo_medicamento}'}), (a:ACTIVO {nombre:'${relacion.nombre_activo}'})
+                CREATE (m)-[
+                    :TIENE
+                ]->(a)
+            `)
+            return true
+    } catch (error) {
+        console.log(error)
+        return null
+    } finally {
+        session.close();
+    }
+}

@@ -201,4 +201,43 @@ router.delete('/:id', async function (req, res) {
     }
 })
 
+/**
+ * @swagger
+ * /med/relacion_entre_medicamentos_y_activos:
+ *  post:
+ *      summary: Crea todas las relaciones entre los medicamentos y sus activos
+ *      tags: [Medicamento generico]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          activo_medicamento:
+ *                              type: string
+ *                              description: Activo del medicamento
+ *                          nombre_activo:
+ *                              type: string
+ *                              description: Nombre del activo
+ *          responses:
+ *              200:
+ *                  description: Relaciones creadas
+ *              500:
+ *                  description: Error al crear las relaciones
+ */
+router.post('/relacion_entre_medicamentos_y_activos', async function(req, res) {
+    const result = await med_calls.create_principle_active_relation(req.body)
+    if (result == true) {
+        res.status(200).send({ 
+            Message: "Se han creado todas las relaciones para " +  req.body.activo_medicamento + " y " + req.body.nombre_activo
+        })
+        return true
+    } else {
+        res.status(500).send({ 
+            Message: "Hubo un error al crear las relaciones: " +  req.body.activo_medicamento + " y " + req.body.nombre_activo
+         })
+    }
+})
+
 module.exports = router;

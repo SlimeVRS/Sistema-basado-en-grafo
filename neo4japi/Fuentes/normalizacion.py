@@ -6,13 +6,13 @@ import unidecode
 
 def normalization_for_file_4():
 
-    with open("4._Principios_Activos_y_Presentación.csv", "r", encoding="UTF-8") as source:
+    with open('4._Principios_Activos_y_Presentación.csv', "r", encoding="UTF-8") as source:
         reader = csv.reader(source)
 
         with open("4_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((r[1].upper(), unidecode.unidecode(r[5].upper()), r[7], r[8].upper()))
+                writer.writerow((eliminar_numero(r[1].upper()), unidecode.unidecode(r[5].upper()), r[7], r[8].upper()))
         result.close()
     source.close()
 
@@ -22,13 +22,13 @@ def normalization_for_file_4():
     df.to_csv("4_Normalizado.csv", index=False)
 
 def normalization_for_file_6():
-    with open("6-Medicamentos_adquiridos_por_hospital.csv", "r", encoding="UTF-8") as source:
+    with open('6-Medicamentos_adquiridos_por_hospital.csv', "r", encoding="UTF-8") as source:
         reader = csv.reader(source)
 
         with open("6_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((unidecode.unidecode(r[2].upper()), r[6], r[8], unidecode.unidecode(r[9].upper())))
+                writer.writerow((unidecode.unidecode(r[2].upper()), eliminar_numero(unidecode.unidecode(r[3].upper().replace(',', ''))), r[6], r[8]))
         result.close()
     source.close()
 
@@ -38,13 +38,13 @@ def normalization_for_file_6():
     df.to_csv("6_Normalizado.csv", index=False)
 
 def normalization_for_file1():
-    with open("1.1_Nombre_de_productos_genéricos_y_Farmaceutica.csv", "r", encoding="UTF-8") as source:
+    with open('1.1_Nombre_de_productos_genéricos_y_Farmaceutica.csv', "r", encoding="UTF-8") as source:
         reader = csv.reader(source)
 
         with open("1_Normalizado.csv", "w", encoding="UTF-8") as result:
             writer = csv.writer(result)
             for r in reader:
-                writer.writerow((eliminar_numero(r[0]).upper(), r[1].upper(), r[2], r[3], r[5], r[9]))
+                writer.writerow((eliminar_numero(r[0]).upper().replace(',', ''), r[1].upper(), r[2], r[3], r[5], r[9]))
         result.close()
     source.close()
 

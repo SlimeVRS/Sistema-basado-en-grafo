@@ -74,3 +74,21 @@ exports.delete_med_ccss = async function(id) {
         session.close()
     }
 }
+
+exports.create_service_med_relations = async function(relacion) {
+    let session = driver.session();
+    try {
+        await session.run(`
+            MATCH (med_ccss:MEDICAMENTO_CCSS {marca:'${relacion.medicamento_solicitado}'}), (med:MEDICAMENTO {nombre:'${relacion.medicamento_pedido}'})
+            CREATE (med_ccss)-[
+                :PIDE
+            ]->(med)
+        `)
+        return true
+    } catch (error) {
+        console.log(error)
+        return null
+    } finally {
+        session.close()
+    }
+}
